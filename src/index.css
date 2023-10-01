@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "AvertaStd";
+  font-style: normal;
+  src: url("https://static.uacdn.net/prod/fonts/avertastd-regular.woff")
+      format("woff"),
+    url("https://static.uacdn.net/prod/fonts/avertastd-regular.otf")
+      format("opentype");
+  font-display: swap;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "AvertaStd";
+  font-weight: bold;
+  src: url("https://static.uacdn.net/prod/fonts/avertastd-bold.woff")
+      format("woff"),
+    url("https://static.uacdn.net/prod/fonts/avertastd-bold.otf")
+      format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AvertaStd";
+  font-weight: 600;
+  src: url("https://static.uacdn.net/prod/fonts/avertastd-semibold.woff")
+      format("woff"),
+    url("https://static.uacdn.net/prod/fonts/avertastd-semibold.otf")
+      format("opentype");
+  font-display: swap;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+  word-break: break-word;
+  outline: none;
+  text-decoration: none;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  font-family: AvertaStd, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  overscroll-behavior: none;
 }
