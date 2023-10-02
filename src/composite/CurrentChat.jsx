@@ -8,7 +8,6 @@ import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { getTime } from "../utils/timeHelper";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -115,7 +114,7 @@ const CurrentChat = ({ currentChat, setCurrentChat }) => {
       {
         text: message,
         time: new Date(),
-        id: uuidv4(),
+        id: sentMessages.length + 1,
         ...(reply ? { reply: { text, time, id } } : {}),
       },
     ];
