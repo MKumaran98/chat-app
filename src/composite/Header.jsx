@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import ForumIcon from "@mui/icons-material/Forum";
+import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import { themes } from "../constants/theme";
 import { useTheme } from "@mui/material/styles";
 
@@ -14,8 +14,8 @@ const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 16px;
-  background: ${({ $background }) => $background};
-  border-bottom: 1px solid ${({ $boderColor }) => $boderColor};
+  background: ${({ background }) => background};
+  border-bottom: 1px solid ${({ boderColor }) => boderColor};
 `;
 
 const ModeToggleWrapper = styled.div`
@@ -36,10 +36,13 @@ const Header = ({ currentTheme, changeThemeHandler }) => {
 
   return (
     <HeaderContainer
-      $background={palette.background.secondary}
-      $boderColor={palette.background.border}
+      background={palette.background.secondary}
+      boderColor={palette.background.border}
     >
-      <ForumIcon fontSize="large" sx={{ color: palette.text.primary }} />
+      <MarkUnreadChatAltIcon
+        fontSize="large"
+        sx={{ color: palette.text.primary }}
+      />
       <ModeToggleWrapper onClick={changeThemeClickedHandler}>
         {currentTheme === themes.LIGHT ? (
           <Brightness4Icon

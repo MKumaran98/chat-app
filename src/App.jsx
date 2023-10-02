@@ -2,6 +2,7 @@ import { Header } from "./composite";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { themes } from "./constants/theme";
+import { Home } from "./container";
 
 const getDesignTokens = (mode) => ({
   palette: {
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <ThemeProvider theme={createTheme(getDesignTokens(theme))}>
       <Header changeThemeHandler={setTheme} currentTheme={theme} />
+      <Home />
     </ThemeProvider>
   );
 };
