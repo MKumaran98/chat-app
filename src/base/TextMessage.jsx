@@ -38,12 +38,22 @@ const TimeWrapper = styled.div`
   flex-direction: row-reverse;
 `;
 
+const ReplyTextMessageWrapper = styled.div`
+  padding: 8px;
+  margin-left: auto;
+  width: 100%;
+  border-radius: 4px;
+  background: #0b705a;
+  display: flex;
+  flex-direction: column;
+`;
+
 const options = [{ label: "Reply", id: "1" }];
 
 const TextMessage = ({ replyClicked, message }) => {
   const { palette } = useTheme();
 
-  const { text, time } = message;
+  const { text, time, reply } = message;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -56,6 +66,18 @@ const TextMessage = ({ replyClicked, message }) => {
   return (
     <MessageWrapper>
       <TextMessageWrapper background={palette.background.chatMessage}>
+        {reply ? (
+          <div>
+            <ReplyTextMessageWrapper>
+              <TextWrapper>
+                <P1 color={palette.text.primary}>{reply.text}</P1>
+              </TextWrapper>
+              <TimeWrapper>
+                <P2 color={palette.text.primary}>{getTime(reply.time)}</P2>
+              </TimeWrapper>
+            </ReplyTextMessageWrapper>
+          </div>
+        ) : null}
         <div>
           <IconButton
             onClick={handleClick}

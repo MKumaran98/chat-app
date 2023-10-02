@@ -9,17 +9,17 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { getTime } from "../utils/timeHelper";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CurrentChatWrapper = styled.div`
   height: 100%;
   width: 100%;
-  display: ${({ showChat }) => (showChat ? "block" : "none")};
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  display: ${({ showChat }) => (showChat ? "flex" : "none")};
   background: ${({ background }) => background};
+  flex-direction: column;
   ${mq[3]} {
-    display: block;
+    display: flex;
   }
 `;
 
@@ -56,30 +56,71 @@ const TextSendWrapper = styled.div`
 
 const MessagesWindowWrapper = styled.div`
   width: 100%;
-  height: calc(100% - 140px);
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
+  margin-top: auto;
+  margin-bottom: ${({ hasBottom }) => (hasBottom ? "170px" : "84px")};
+`;
+
+const TextAndReplyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  ${mq[3]} {
+    width: 67%;
+  }
+`;
+
+const ReplyWrapper = styled.div`
+  margin-left: 12px;
+`;
+
+const TextMessageWrapper = styled.div`
+  padding: 8px;
+  width: 94%;
+  border-radius: 4px;
+  background: ${({ background }) => background};
+  display: flex;
+  flex-direction: column;
+`;
+
+const TimeWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
+const TextWrapper = styled.div`
+  padding-left: 12px;
 `;
 
 const CurrentChat = ({ currentChat }) => {
   const { palette } = useTheme();
 
   const [sentMessages, setSentMessages] = useState([]);
-
   const [message, setMessage] = useState("");
+  const [reply, setReply] = useState(null);
 
   const sendMessageHandler = () => {
+    const { text, time, id } = reply || {};
     const newSentMessages = [
       ...sentMessages,
       {
         text: message,
         time: new Date(),
         id: uuidv4(),
+        ...(reply ? { reply: { text, time, id } } : {}),
       },
     ];
     setSentMessages(newSentMessages);
     setMessage("");
+    setReply(null);
+  };
+
+  const replyClickedHandler = (message) => {
+    setReply(message);
   };
 
   if (!currentChat) {
@@ -117,28 +158,52 @@ const CurrentChat = ({ currentChat }) => {
           <P2 color={palette.text.secondary}>online</P2>
         </TitleTextWrapper>
       </ChatHeader>
-      <MessagesWindowWrapper>
+      <MessagesWindowWrapper hasBottom={!!reply}>
         {sentMessages.map((message) => (
-          <TextMessage message={message} key={message.id} />
+          <TextMessage
+            message={message}
+            key={message.id}
+            replyClicked={replyClickedHandler}
+          />
         ))}
       </MessagesWindowWrapper>
-      <TextSendWrapper>
-        <TextField
-          placeholder="Type your message here"
-          sx={{
-            background: palette.background.secondary,
-            borderRadius: "8px",
-            width: "100%",
-          }}
-          value={message}
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        />
-        <IconButton aria-label="delete" onClick={sendMessageHandler}>
-          <SendIcon sx={{ color: palette.text.primary, cursor: "pointer" }} />
-        </IconButton>
-      </TextSendWrapper>
+      <TextAndReplyWrapper>
+        {reply ? (
+          <ReplyWrapper>
+            <TextMessageWrapper background={palette.background.chatMessage}>
+              <TimeWrapper>
+                <CloseIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => setReply(null)}
+                />
+              </TimeWrapper>
+              <TextWrapper>
+                <P1 color={palette.text.primary}>{reply.text}</P1>
+              </TextWrapper>
+              <TimeWrapper>
+                <P2 color={palette.text.primary}>{getTime(reply.time)}</P2>
+              </TimeWrapper>
+            </TextMessageWrapper>
+          </ReplyWrapper>
+        ) : null}
+        <TextSendWrapper>
+          <TextField
+            placeholder="Type your message here"
+            sx={{
+              background: palette.background.secondary,
+              borderRadius: "8px",
+              width: "100%",
+            }}
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <IconButton aria-label="delete" onClick={sendMessageHandler}>
+            <SendIcon sx={{ color: palette.text.primary, cursor: "pointer" }} />
+          </IconButton>
+        </TextSendWrapper>
+      </TextAndReplyWrapper>
     </CurrentChatWrapper>
   );
 };
