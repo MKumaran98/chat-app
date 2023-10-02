@@ -18,12 +18,14 @@ const getDesignTokens = (mode) => ({
             border: "#d0d7de",
             secondary: "#f6f8fa",
             chatWindow: "#c6c3c2",
+            chatMessage: "#00a884",
           }
         : {
             primary: "#02040a",
             secondary: "#0d1116",
             border: "#30363d",
             chatWindow: "#454545",
+            chatMessage: "#008069",
           }),
     },
 

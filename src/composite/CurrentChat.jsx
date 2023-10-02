@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ChatIllustration } from "../base";
+import { ChatIllustration, TextMessage } from "../base";
 import { useTheme } from "@mui/material/styles";
 import { H2, P1, H5, P2 } from "../base";
 import { mq } from "../constants/theme";
@@ -56,6 +56,8 @@ const MessagesWindowWrapper = styled.div`
   width: 100%;
   height: calc(100% - 140px);
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 `;
 
 const CurrentChat = ({ currentChat }) => {
@@ -95,7 +97,9 @@ const CurrentChat = ({ currentChat }) => {
           <P2 color={palette.text.secondary}>online</P2>
         </TitleTextWrapper>
       </ChatHeader>
-      <MessagesWindowWrapper></MessagesWindowWrapper>
+      <MessagesWindowWrapper>
+        <TextMessage />
+      </MessagesWindowWrapper>
       <TextSendWrapper>
         <TextField
           placeholder="Type your message here"

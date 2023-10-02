@@ -6,5 +6,6 @@ import P2 from "./P2";
 import H7 from "./H7";
 import H5 from "./H5";
 import ChatIllustration from "./ChatIllustration";
+import TextMessage from "./TextMessage";
 
-export { ChatItem, H2, H4, P1, P2, H5, H7, ChatIllustration };
+export { ChatItem, H2, H4, P1, P2, H5, H7, ChatIllustration, TextMessage };
