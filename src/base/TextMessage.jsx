@@ -8,6 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { getTime } from "../utils/timeHelper";
 
 const MessageWrapper = styled.div`
   width: 100%;
@@ -42,6 +43,8 @@ const options = [{ label: "Reply", id: "1" }];
 const TextMessage = ({ replyClicked, message }) => {
   const { palette } = useTheme();
 
+  const { text, time } = message;
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -54,7 +57,10 @@ const TextMessage = ({ replyClicked, message }) => {
     <MessageWrapper>
       <TextMessageWrapper background={palette.background.chatMessage}>
         <div>
-          <IconButton onClick={handleClick}>
+          <IconButton
+            onClick={handleClick}
+            sx={{ "&.MuiButtonBase-root": { padding: "8px" } }}
+          >
             <KeyboardArrowDownIcon fontSize="small" />
           </IconButton>
           <Menu
@@ -80,10 +86,10 @@ const TextMessage = ({ replyClicked, message }) => {
           </Menu>
         </div>
         <TextWrapper>
-          <P1 color={palette.text.primary}>test</P1>
+          <P1 color={palette.text.primary}>{text}</P1>
         </TextWrapper>
         <TimeWrapper>
-          <P2 color="white">11:30PM</P2>
+          <P2 color={palette.text.primary}>{getTime(time)}</P2>
         </TimeWrapper>
       </TextMessageWrapper>
     </MessageWrapper>

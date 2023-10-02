@@ -7,6 +7,8 @@ import { Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const CurrentChatWrapper = styled.div`
   height: 100%;
@@ -62,6 +64,24 @@ const MessagesWindowWrapper = styled.div`
 
 const CurrentChat = ({ currentChat }) => {
   const { palette } = useTheme();
+
+  const [sentMessages, setSentMessages] = useState([]);
+
+  const [message, setMessage] = useState("");
+
+  const sendMessageHandler = () => {
+    const newSentMessages = [
+      ...sentMessages,
+      {
+        text: message,
+        time: new Date(),
+        id: uuidv4(),
+      },
+    ];
+    setSentMessages(newSentMessages);
+    setMessage("");
+  };
+
   if (!currentChat) {
     return (
       <CurrentChatWrapper>
@@ -98,7 +118,9 @@ const CurrentChat = ({ currentChat }) => {
         </TitleTextWrapper>
       </ChatHeader>
       <MessagesWindowWrapper>
-        <TextMessage />
+        {sentMessages.map((message) => (
+          <TextMessage message={message} key={message.id} />
+        ))}
       </MessagesWindowWrapper>
       <TextSendWrapper>
         <TextField
@@ -108,9 +130,13 @@ const CurrentChat = ({ currentChat }) => {
             borderRadius: "8px",
             width: "100%",
           }}
+          value={message}
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
         />
-        <IconButton aria-label="delete">
-          <SendIcon sx={{ color: palette.text.primary }} />
+        <IconButton aria-label="delete" onClick={sendMessageHandler}>
+          <SendIcon sx={{ color: palette.text.primary, cursor: "pointer" }} />
         </IconButton>
       </TextSendWrapper>
     </CurrentChatWrapper>
