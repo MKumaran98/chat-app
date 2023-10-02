@@ -11,6 +11,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getTime } from "../utils/timeHelper";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const CurrentChatWrapper = styled.div`
   height: 100%;
@@ -43,6 +44,7 @@ const ChatHeader = styled.div`
   background: ${({ background }) => background};
   display: flex;
   z-index: 1000;
+  align-items: center;
 `;
 
 const TitleTextWrapper = styled.div`
@@ -96,7 +98,7 @@ const TextWrapper = styled.div`
   padding-left: 12px;
 `;
 
-const CurrentChat = ({ currentChat }) => {
+const CurrentChat = ({ currentChat, setCurrentChat }) => {
   const { palette } = useTheme();
 
   const [sentMessages, setSentMessages] = useState([]);
@@ -152,14 +154,22 @@ const CurrentChat = ({ currentChat }) => {
         boderColor={palette.background.border}
         background={palette.background.primary}
       >
-        <Avatar />
+        <ArrowBackIcon
+          fontSize="medium"
+          onClick={() => setCurrentChat(null)}
+          sx={{ cursor: "pointer" }}
+        />
+        <Avatar
+          onClick={() => setCurrentChat(null)}
+          sx={{ cursor: "pointer" }}
+        />
         <TitleTextWrapper>
           <H5 color={palette.text.primary}>{currentChat.name}</H5>
           <P2 color={palette.text.secondary}>online</P2>
         </TitleTextWrapper>
       </ChatHeader>
       <MessagesWindowWrapper hasBottom={!!reply}>
-        {sentMessages.map((message) => (
+        {sentMessages.reverse().map((message) => (
           <TextMessage
             message={message}
             key={message.id}

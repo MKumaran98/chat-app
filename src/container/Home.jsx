@@ -38,7 +38,10 @@ const Home = () => {
           selectedChatHandler={(item) => setCurrentChat(item)}
           currentChat={currentChat}
         />
-        <CurrentChat currentChat={currentChat} />
+        <CurrentChat
+          currentChat={currentChat}
+          setCurrentChat={setCurrentChat}
+        />
       </ChatWindowWrapper>
     </HomeWrapper>
   );

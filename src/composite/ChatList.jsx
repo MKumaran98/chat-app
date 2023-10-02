@@ -24,7 +24,7 @@ const ChatList = ({ selectedChatHandler, currentChat }) => {
       boderColor={palette.background.border}
       showChat={!!currentChat}
     >
-      {chats.reverse().map((item) => (
+      {chats.map((item) => (
         <ChatItem
           key={item.id}
           name={item.name}
