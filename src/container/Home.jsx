@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { useTheme } from "@mui/material/styles";
 import { mq } from "../constants/theme";
-import { ChatList } from "../composite";
+import { ChatList, CurrentChat } from "../composite";
+import { useState } from "react";
 
 const HomeWrapper = styled.div`
   margin-top: 80px;
@@ -28,11 +29,16 @@ const ChatWindowWrapper = styled.div`
 `;
 
 const Home = () => {
+  const [currentChat, setCurrentChat] = useState(null);
   const { palette } = useTheme();
   return (
     <HomeWrapper background={palette.background.secondary}>
       <ChatWindowWrapper background={palette.background.primary}>
-        <ChatList></ChatList>
+        <ChatList
+          selectedChatHandler={(item) => setCurrentChat(item)}
+          currentChat={currentChat}
+        />
+        <CurrentChat currentChat={currentChat} />
       </ChatWindowWrapper>
     </HomeWrapper>
   );

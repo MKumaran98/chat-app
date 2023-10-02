@@ -9,6 +9,7 @@ const ChatItemWrapper = styled.div`
   padding-bottom: 0px;
   display: flex;
   cursor: pointer;
+  background: ${({ background }) => background};
 `;
 
 const TitleTextWrapper = styled.div`
@@ -18,13 +19,20 @@ const TitleTextWrapper = styled.div`
   padding-bottom: 8px;
 `;
 
-const ChatItem = ({ name }) => {
+const ChatItem = ({ name, onClick, isCurrentChat }) => {
   const { palette } = useTheme();
   return (
-    <ChatItemWrapper>
+    <ChatItemWrapper
+      onClick={onClick}
+      background={
+        isCurrentChat
+          ? palette.background.secondary
+          : palette.background.primary
+      }
+    >
       <Avatar />
       <TitleTextWrapper boderColor={palette.background.border}>
-        <H5>{name}</H5>
+        <H5 color={palette.text.primary}>{name}</H5>
         <P2 color={palette.text.secondary}>Click to start texting</P2>
       </TitleTextWrapper>
     </ChatItemWrapper>
