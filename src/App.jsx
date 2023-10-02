@@ -13,11 +13,17 @@ const getDesignTokens = (mode) => ({
 
     background: {
       ...(mode === themes.LIGHT
-        ? { primary: "#ffffff", border: "#d0d7de", secondary: "#f6f8fa" }
+        ? {
+            primary: "#ffffff",
+            border: "#d0d7de",
+            secondary: "#f6f8fa",
+            chatWindow: "#c6c3c2",
+          }
         : {
             primary: "#02040a",
             secondary: "#0d1116",
             border: "#30363d",
+            chatWindow: "#454545",
           }),
     },
 

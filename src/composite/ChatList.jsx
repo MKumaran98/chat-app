@@ -8,17 +8,22 @@ const ChatListWrapper = styled.div`
   height: 100%;
   width: 100%;
   padding-top: 8px;
+  display: ${({ showChat }) => (showChat ? "none" : "block")};
   ${mq[1]} {
     flex: 0 0 30%;
     max-width: 30%;
     border-right: 1px solid ${({ boderColor }) => boderColor};
+    display: block;
   }
 `;
 
 const ChatList = ({ selectedChatHandler, currentChat }) => {
   const { palette } = useTheme();
   return (
-    <ChatListWrapper boderColor={palette.background.border}>
+    <ChatListWrapper
+      boderColor={palette.background.border}
+      showChat={!!currentChat}
+    >
       {chats.map((item) => (
         <ChatItem
           key={item.id}
