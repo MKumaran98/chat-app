@@ -74,6 +74,9 @@ const TextAndReplyWrapper = styled.div`
   ${mq[3]} {
     width: 67%;
   }
+  ${mq[4]} {
+    width: 63%;
+  }
 `;
 
 const ReplyWrapper = styled.div`
